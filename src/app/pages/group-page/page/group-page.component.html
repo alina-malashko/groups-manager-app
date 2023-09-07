@@ -1,0 +1,53 @@
+<div class="bg-white h-screen p-6">
+  <h1 class="text-4xl font-medium mt-20 mb-14">
+    Группа № {{groupNumber}}
+  </h1>
+  <div class="relative overflow-x-auto sm:rounded-lg mb-14">
+    <table *ngIf="students" class="w-full text-sm text-left">
+      <thead class="text-base bg-slate-300">
+        <tr>
+          <th *ngFor="let column of columns" class="px-6 py-3 text-center">
+            {{column}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let student of students"
+          class="bg-white border-b border-slate-400 text-center"
+        >
+          <td class="px-6 py-4">
+            {{student.date | date:"dd.MM.yyyy"}}
+          </td>
+          <td class="px-6 py-4">
+            {{student.name}}
+          </td>
+          <td class="px-6 py-4">
+            <a
+              (click)="deleteStudent(student.id)"
+              class="font-medium text-blue-600 hover:underline cursor-pointer"
+            >
+              Delete
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!students">Упс! Что-то пошло не так, перезагрузите страницу</div>
+  </div>
+  <div class="flex flex-col gap-4 max-w-xs mb-14">
+    <app-input
+      [(ngModel)]="newStudent"
+      type="text"
+      placeholder="ФИО"
+    ></app-input>
+    <app-button (click)="createStudent()">
+      Принять нового студента
+    </app-button>
+  </div>
+  <div class="max-w-xs">
+    <app-button (click)="backToGroupList()">
+      Вернуться к списку групп
+    </app-button>
+  </div>
+</div>

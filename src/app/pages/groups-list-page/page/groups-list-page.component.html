@@ -1,0 +1,48 @@
+<div class="bg-white h-screen p-6">
+  <h1 class="text-4xl font-medium mt-20 mb-14">
+    Группы университета ScaleApps
+  </h1>
+  <div class="relative overflow-x-auto sm:rounded-lg mb-14">
+    <table *ngIf="groups" class="w-full text-sm text-left">
+      <thead class="text-base bg-slate-300">
+        <tr>
+          <th *ngFor="let column of columns" class="px-6 py-3 text-center">
+            {{column}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let group of groups"
+          class="bg-white border-b border-slate-400 text-center"
+        >
+          <td class="px-6 py-4">
+            {{group.number}}
+          </td>
+          <td class="px-6 py-4">
+            {{group.students.length}}
+          </td>
+          <td class="px-6 py-4">
+            <a
+              (click)="editGroupInfo(group.id)"
+              class="font-medium text-blue-600 hover:underline cursor-pointer"
+            >
+              Edit
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!groups">Упс! Что-то пошло не так, перезагрузите страницу</div>
+  </div>
+  <div class="flex flex-col gap-4 max-w-xs">
+    <app-input
+      [(ngModel)]="newGroup"
+      type="text"
+      placeholder="Номер группы"
+    ></app-input>
+    <app-button (click)="createGroup()">
+      Добавить новую группу
+    </app-button>
+  </div>
+</div>
